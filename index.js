@@ -9,7 +9,7 @@ const stringSimilarity = require("string-similarity");
 const app = express();
 
 app.use(cors());
-const PORT = 3000;
+const PORT = 3338;
 
 // Middleware to parse JSON
 app.use(bodyParser.json());
