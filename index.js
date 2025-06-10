@@ -56,7 +56,12 @@ function getMostSimilarProduct(productName, callback) {
     });
 }
 
+app.get("/", (req, res) => {
+  res.send("Hello World from bohler!");
+});
+
 app.post("/send_mail", async (req, res) => {
+  console.log(">>>>><<<<<");
   let productName =
     req.body.message.toolCallList[0].function.arguments.productName;
 
