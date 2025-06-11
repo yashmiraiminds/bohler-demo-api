@@ -78,12 +78,13 @@ app.post("/send_mail", async (req, res) => {
 
       const transporter = nodemailer.createTransport({
         service: "Gmail",
-        port: 587,
-        secure: false,
+        port: 465,
+        secure: true,
         auth: {
           user: "kandarp@miraiminds.co",
           pass: "knkwlzqncbiwjuex", // App password
         },
+        family: 4,
         debug: true,
         logger: true,
       });
