@@ -26,20 +26,20 @@ function getMostSimilarProduct(productName, callback) {
       .pipe(
         csv({
           mapHeaders: ({ header }) => header.trim().toLowerCase(),
-        }),
+        })
       )
       .on("data", (data) => results.push(data))
       .on("end", () => {
         const inputNormalized = normalizeName(productName);
 
         const productNames = results.map((row) =>
-          normalizeName(row["product name"]),
+          normalizeName(row["product name"])
         );
         const originalNames = results.map((row) => row["product name"]);
 
         const match = stringSimilarity.findBestMatch(
           inputNormalized,
-          productNames,
+          productNames
         );
 
         const bestMatchIndex = match.bestMatchIndex;
@@ -64,7 +64,8 @@ app.post("/send_mail", async (req, res) => {
   try {
     let productName =
       req.body.message.toolCallList[0].function.arguments.productName;
-
+    let userEmail =
+      req.body.message.toolCallList[0].function.arguments.userEmail;
     console.log({ productName });
 
     getMostSimilarProduct(productName, async (result) => {
@@ -90,7 +91,7 @@ app.post("/send_mail", async (req, res) => {
 
       const mailOptions = {
         from: '"Bohler Welding" <kandarp@miraiminds.co>',
-        to: "sek@miraiminds.co",
+        to: userEmail,
         subject: `${matchedName} - Product Data Sheet`,
         html: `<p><strong>Product Name:</strong> ${matchedName}</p><p><strong>Product Data Sheet Link:</strong> ${sheetLink}</p>`,
       };
